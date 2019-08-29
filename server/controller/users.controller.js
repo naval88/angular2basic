@@ -27,3 +27,35 @@ exports.createUser = (req, res) => {
 	});
 };
 
+exports.listUser = (req,res) => {
+	 User.listUser(function(err, user) {
+		if (err) {
+			res.send(err);
+		}
+		let data = {'status':200, 'data':user};
+		res.send(data);
+	});
+};
+
+exports.updateUser = (req, res) => {
+	User.updateUserById(req.params.userId, req.body ,function(err, user) {
+		if (err) {
+			res.send(err);
+		}
+		let data = {'status':200, 'message':"user has been updated successfully"};
+		res.send(data);
+	});
+
+};
+
+exports.deleteUser = (req, res) => {
+	User.remvoeUser(req.params.userId,function(err, user) {
+		if (err) {
+			res.send(err);
+		}
+		let data = {'status':200, 'message':"user has been deleted successfully"};
+		res.send(data);
+	});
+
+};
+
