@@ -1,9 +1,19 @@
-<h2>Product Details</h2>
-<div *ngIf="product">
-  <h3>{{ product.name }}</h3>
-  <h4>{{ product.price | currency }}</h4>
-  <p>{{ product.description }}</p>
-  <p><a [routerLink]="['/']">Back</a></p>
-  <button (click)="addToCart(product)">Buy Now</button>
+<app-top-bar></app-top-bar>
+<div class="container">
+    <div class="row" style="width:100%">
+    	<div class="col-md-7">
+			<h2>Product Details</h2>
+			<div *ngIf="product">
+			  <h3>{{ product.name }}</h3>
+			  <h4>{{ product.price | currency }}</h4>
+			  <p>{{ product.description }}</p>
+			  <p><a [routerLink]="['/']">Back</a></p>
+			  <button (click)="addToCart(product)">Buy Now</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-5">
+		<app-cart></app-cart>
+	</div>
 </div>
 
