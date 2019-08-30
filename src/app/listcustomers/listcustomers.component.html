@@ -1,12 +1,18 @@
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Email</th>
-		<th>Action</th>
-	</tr>
-	<tr>
-		<th>Name</th>
-		<th>Email</th>
-		<th>Action</th>
-	</tr>
-</table>	
+<div class="container">
+	<div class="col-md-12">
+		<table>
+			<tr>
+				<th>S.No</th>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Action</th>
+			</tr>
+			<tr *ngFor="let user of users, index as id">
+				<th>{{id+1}}</th>
+				<th>{{user.name}}</th>
+				<th>{{user.email}}</th>
+				<th>Action</th>
+			</tr>
+		</table>	
+	</div>
+</div>		

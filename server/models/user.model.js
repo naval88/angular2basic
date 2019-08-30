@@ -5,7 +5,7 @@ var md5 = require('md5');
 var User = function(user){
     this.name = user.name;
     this.email = user.email;
-    this.password = md5(user.password);
+    this.password = user.password;
     this.created_at = new Date();
     this.updated_at = new Date();
 };

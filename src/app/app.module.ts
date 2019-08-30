@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { ListProductsComponent } from './list-products/list-products.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -10,6 +12,7 @@ import { ProductAlertsComponent } from './product-alerts/product-alerts.componen
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { CartComponent } from './cart/cart.component';
 import { ListcustomersComponent } from './listcustomers/listcustomers.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +22,15 @@ import { ListcustomersComponent } from './listcustomers/listcustomers.component'
     ProductAlertsComponent,
     ProductDetailsComponent,
     CartComponent,
-    ListcustomersComponent
+    ListcustomersComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    HttpClientModule
+    ReactiveFormsModule,
+    RouterModule
   ],
   providers: [],
   bootstrap: [AppComponent]

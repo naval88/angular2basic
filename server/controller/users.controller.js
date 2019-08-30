@@ -32,7 +32,7 @@ exports.listUser = (req,res) => {
 		if (err) {
 			res.send(err);
 		}
-		let data = {'status':200, 'data':user};
+		let data = {'status':200,'data':user};
 		res.send(data);
 	});
 };
