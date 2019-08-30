@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import {NgxPaginationModule} from 'ngx-pagination';
 
 import { ListProductsComponent } from './list-products/list-products.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -30,7 +31,8 @@ import { RegisterComponent } from './register/register.component';
     HttpClientModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    RouterModule
+    RouterModule,
+    NgxPaginationModule
   ],
   providers: [],
   bootstrap: [AppComponent]

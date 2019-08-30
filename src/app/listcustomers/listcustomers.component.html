@@ -1,18 +1,19 @@
 <div class="container">
-	<div class="col-md-12">
-		<table>
+	<div class="col-md-6 offset-md-3">
+		<table class="table table-striped">
 			<tr>
 				<th>S.No</th>
 				<th>Name</th>
 				<th>Email</th>
 				<th>Action</th>
 			</tr>
-			<tr *ngFor="let user of users, index as id">
-				<th>{{id+1}}</th>
+			<tr *ngFor="let user of users| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+				<th>{{i+1}}</th>
 				<th>{{user.name}}</th>
 				<th>{{user.email}}</th>
 				<th>Action</th>
 			</tr>
 		</table>	
+		 <pagination-controls (pageChange)="p = $event"></pagination-controls>	
 	</div>
 </div>		
