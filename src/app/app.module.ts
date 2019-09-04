@@ -5,7 +5,10 @@ import { AppComponent } from './app.component';
 import { HttpClientModule} from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import {NgxPaginationModule} from 'ngx-pagination';
+import { NgxPaginationModule } from 'ngx-pagination';
+
+import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+import { AuthService } from './auth/auth.service';
 
 import { ListProductsComponent } from './list-products/list-products.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
@@ -14,6 +17,10 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { CartComponent } from './cart/cart.component';
 import { ListcustomersComponent } from './listcustomers/listcustomers.component';
 import { RegisterComponent } from './register/register.component';
+import { StudentListComponent } from './student-list/student-list.component';
+import { LoginComponent } from './login/login.component';
+import { BlogComponent } from './blog/blog.component';
+import { AddpostComponent } from './addpost/addpost.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +31,11 @@ import { RegisterComponent } from './register/register.component';
     ProductDetailsComponent,
     CartComponent,
     ListcustomersComponent,
-    RegisterComponent
+    RegisterComponent,
+    StudentListComponent,
+    LoginComponent,
+    BlogComponent,
+    AddpostComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +45,7 @@ import { RegisterComponent } from './register/register.component';
     RouterModule,
     NgxPaginationModule
   ],
-  providers: [],
+  providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
