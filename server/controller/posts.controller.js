@@ -1,4 +1,5 @@
 var Post = require('../models/posts.model.js');
+const Mail = require('../mail/mail.js');
 var db_conection = require('../config/db.js');
 var fs = require('fs');
 const folder_name = "./upload/";
@@ -35,17 +36,3 @@ exports.listPost = (req,res) => {
 	});
 
 };
-	
-
-
-
-
-
-
-
-
-
-
-
-
-
