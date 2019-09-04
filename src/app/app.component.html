@@ -4,7 +4,7 @@
 		<li *ngIf="!token"><a routerLink="/sign-in">Login</a></li>
 		<li *ngIf="!token" ><a routerLink="/sign-up">Sign Up</a></li>	
 		<li *ngIf="token"><a routerLink="/add-post">Add Post</a></li>	
-		<li *ngIf="token" >{{username}}</li>
+		<li *ngIf="token" >{{username | uppercase}}</li>
 		<li *ngIf="token" (click)="logOut()">Logout</li>
 	</ul>
 </div>	
