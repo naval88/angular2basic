@@ -37,8 +37,7 @@ export class LoginComponent implements OnInit {
         this.regService.checkUserData(data).subscribe((response : any)=> {
       		console.log(response);			
 			if(response.type == 'success') {
-
-			localStorage.setItem('token', JSON.stringify(response._token));
+				localStorage.setItem('token', response._token);
 				this.router.navigate(['/customers']);
 			} else {
 			this.email_password_not_match = "email and password not match";

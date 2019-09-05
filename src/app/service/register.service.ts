@@ -4,14 +4,18 @@ import { Observable } from 'rxjs';
 import { Router } from "@angular/router";
 //https://www.concretepage.com/angular/angular-httpclient-post
 
-
 @Injectable({
 	providedIn: 'root'
 })
-export class RegisterService {
 
-	constructor(private httpClient:HttpClient,private router:Router) { }
- 	url = "http://127.0.0.1:8081/sign-up";
+export class RegisterService {	
+
+	headers_Authorization = {
+		headers: new HttpHeaders({ 'Authorization': "Bearer "+localStorage.getItem('token') })
+	};
+
+	constructor(private httpClient: HttpClient, 
+				private router: Router) { }	
 
 	saveUserData(data) {		
      	return this.httpClient.post('http://localhost:8081/sign-up', data);
@@ -22,7 +26,7 @@ export class RegisterService {
 	};
 
 	sendPostData(data) {
-		return this.httpClient.post('http://localhost:8081/posts', data);
+		return this.httpClient.post('http://localhost:8081/posts', data, this.headers_Authorization);
 	};
 	
 }

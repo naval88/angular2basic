@@ -8,5 +8,6 @@ module.exports = function(app) {
 	app.delete('/users/:userId', user.deleteUser);
 	app.post('/sign-in', user.signIn);
 	app.post('/posts', post.createPost);
-	app.get('/posts', post.listPost);
+	app.get('/posts', post.listPost);	
+	app.get('/posts/:limitId', post.listPostAsPerPage);
 }

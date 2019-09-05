@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';;
-import { RegisterService } from '../service/register.service';
+import { RegisterService }  from '../service/register.service';
 import { Router } from "@angular/router";
+import { TokenService } from '../service/token.service';
 
 @Component({
 	selector: 'app-addpost',
@@ -16,10 +17,12 @@ export class AddpostComponent implements OnInit {
 	img_url: any;
 	public message: string;
 	private technical_error:string;
+	user_data;
 
 	constructor(private fb: FormBuilder, 
 				private regService:RegisterService,
-				private router:Router) { }
+				private router:Router,
+				private tokenService:TokenService) { }
 
 	ngOnInit() {
 		this.postForm = this.fb.group({
@@ -29,9 +32,10 @@ export class AddpostComponent implements OnInit {
 		});
 	};
 
-	onSubmit(data) {     	
+	onSubmit(data) {     
      	data.image = this.img_url;
      	data.files = this.files_detail;
+     	data.author_id = this.tokenService.getUserData('id');
 		this.regService.sendPostData(data).subscribe((response : any)=> {
 			if(response.type == "success") {
 				this.router.navigate(['/']);
@@ -60,6 +64,5 @@ export class AddpostComponent implements OnInit {
 			this.img_url = reader.result; 
 		}
 	}
-
 
 }

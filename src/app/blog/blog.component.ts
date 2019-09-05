@@ -10,16 +10,27 @@ import { env } from './../env';
 export class BlogComponent implements OnInit {
 
 	post_data:string;
-	server_url:string
+	server_url:string;
+	data:array;
+	limit;
 
 	constructor(private blogservice:BlogService) {
 		this.server_url = env.API_URL+"/upload/";
 	}
 
 	ngOnInit() {
-		this.blogservice.fetchAllPosts().subscribe((response:any) => {
+			this.limit = 1;
+			this.blogservice.fetchAllPosts(this.limit).subscribe((response:any) => {
 			this.post_data = response.data;
+			this.limit++;
 		});
 	}
+
+	loadMore() {
+		this.blogservice.fetchAllPosts(this.limit).subscribe((response:any) => {
+			this.post_data = response.data;
+			this.limit++;
+		});
+	}	
 
 }

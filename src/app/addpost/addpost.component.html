@@ -7,7 +7,7 @@
 					<label for="email"><b>Title</b></label>
 					<input type="text" class="form-control" formControlName="title">
 					<label for="psw"><b>Description</b></label>
-					<textarea formControlName="description"></textarea>
+					<textarea formControlName="description" [froalaEditor]></textarea>
 					<label for="image">Image</label>
 					<input #file type="file" accept="image/*" formControlName="image" (change)	=getFileDetails(file.files)>
 					<img [src]="img_url" height="200" *ngIf="img_url">

@@ -9,8 +9,11 @@
 						 <img [src]="server_url+posts.image" style="height:140px;" *ngIf=posts.image/>					
 					</div>
 					<p></p>
-					<p>{{posts.description}}</p>
-					<p>Read More</p>
+					<div [innerHTML]="posts.description"></div>
+				<p>Read More</p>
+				</div>
+				<div class="loadmore">
+					<a (click)="loadMore()">Load More</a>
 				</div>
 			</div>
 			<div class="rightcolumn">
