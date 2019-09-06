@@ -1,11 +1,11 @@
 <div class="nav_menu">
 	<ul class="nav_menu" style="display: inline;float:right">
 		<li><a routerLink="/">Home</a></li>
-		<li *ngIf="!token"><a routerLink="/sign-in">Login</a></li>
-		<li *ngIf="!token" ><a routerLink="/sign-up">Sign Up</a></li>	
-		<li *ngIf="token"><a routerLink="/add-post">Add Post</a></li>	
-		<li *ngIf="token" >{{username | uppercase}}</li>
-		<li *ngIf="token" (click)="logOut()">Logout</li>
+		<li *ngIf="!userLoggedIn()"><a routerLink="/sign-in">Login</a></li>
+		<li *ngIf="!userLoggedIn()" ><a routerLink="/sign-up">Sign Up</a></li>	
+		<li *ngIf="userLoggedIn()"><a routerLink="/add-post">Add Post</a></li>	
+		<li *ngIf="userLoggedIn()" ><a>{{username | uppercase}}</a></li>
+		<li *ngIf="userLoggedIn()"><a (click)="logOut()">Logout</a></li>
 	</ul>
 </div>	
 <router-outlet></router-outlet>

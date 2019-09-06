@@ -26,6 +26,7 @@ export class RegisterService {
 	};
 
 	sendPostData(data) {
+		console.log(localStorage.getItem('token'));
 		return this.httpClient.post('http://localhost:8081/posts', data, this.headers_Authorization);
 	};
 	

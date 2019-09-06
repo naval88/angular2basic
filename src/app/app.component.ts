@@ -15,17 +15,29 @@ export class AppComponent {
 
   constructor(private router:Router) { 
   	this.token = localStorage.getItem('token');
-  	if(this.token) {
-  		this.userinfo = this.token.split('.')[1];
-  		this.userinfos =  JSON.parse(window.atob(this.userinfo));
-  		this.username = this.userinfos.data[0].name;
-  	} else {
-  		console.log("yes we are login out");
-  	}
+    if(this.token) {
+      this.userinfo = this.token.split('.')[1];
+      this.userinfos =  JSON.parse(window.atob(this.userinfo));
+      this.username = this.userinfos.data[0].name;
+    } else {
+      console.log("yes we are login out");
+    }
+  }
+
+  userLoggedIn() {
+    this.token = localStorage.getItem('token');
+    if(this.token) {
+        this.userinfo = this.token.split('.')[1];
+        this.userinfos =  JSON.parse(window.atob(this.userinfo));
+        this.username = this.userinfos.data[0].name;
+       return true;     
+    }
+    return false;
   }
 
   logOut() {
 		localStorage.removeItem('token');	
+        localStorage.clear();
 		this.router.navigate(['/sign-in']);
 	}
 }

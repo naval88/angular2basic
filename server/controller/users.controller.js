@@ -2,7 +2,7 @@ var User = require('../models/user.model.js');
 var db_conection = require('../config/db.js');
 const jwt = require('jsonwebtoken');
 const jwtKey = 'qwerty6789';
-const jwtExpirySeconds = 300
+const jwtExpirySeconds = "10h";
 
 exports.getall = (req,res) => { 
 	db_conection.query("SELECT * FROM customers", function (err, result, fields) {

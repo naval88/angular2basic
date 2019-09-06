@@ -22,11 +22,10 @@ export class TokenService {
 	getUserData(param) {
 		this.userinfo = this.token.split('.')[1];
 		this.userinfos =  JSON.parse(window.atob(this.userinfo));
-		this.result = this.userinfos.data[0].name;
+		this.result = this.userinfos.data[0].name;       
 		if(param == 'id') {
 			this.result = this.userinfos.data[0].id;
 		}			
 		return this.result
 	}
-
 }

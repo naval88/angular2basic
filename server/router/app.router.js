@@ -10,4 +10,5 @@ module.exports = function(app) {
 	app.post('/posts', post.createPost);
 	app.get('/posts', post.listPost);	
 	app.get('/posts/:limitId', post.listPostAsPerPage);
+	app.get('/popular-posts', post.popularPosts);
 }

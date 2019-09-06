@@ -7,11 +7,12 @@ import { env } from './../env';
 	templateUrl: './blog.component.html',
 	styleUrls: ['./blog.component.css']
 })
+
 export class BlogComponent implements OnInit {
 
 	post_data:string;
 	server_url:string;
-	data:array;
+	data;
 	limit;
 
 	constructor(private blogservice:BlogService) {
@@ -32,5 +33,9 @@ export class BlogComponent implements OnInit {
 			this.limit++;
 		});
 	}	
+
+	onRate(event) {
+		console.log(event);
+	}
 
 }

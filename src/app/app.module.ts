@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+import { RatingModule } from 'ng-starrating';
 
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { AuthService } from './auth/auth.service';
@@ -22,6 +23,7 @@ import { StudentListComponent } from './student-list/student-list.component';
 import { LoginComponent } from './login/login.component';
 import { BlogComponent } from './blog/blog.component';
 import { AddpostComponent } from './addpost/addpost.component';
+import { PopularpostComponent } from './popularpost/popularpost.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,8 @@ import { AddpostComponent } from './addpost/addpost.component';
     StudentListComponent,
     LoginComponent,
     BlogComponent,
-    AddpostComponent
+    AddpostComponent,
+    PopularpostComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +49,8 @@ import { AddpostComponent } from './addpost/addpost.component';
     RouterModule,
     NgxPaginationModule,
     FroalaEditorModule.forRoot(), 
-    FroalaViewModule.forRoot()
+    FroalaViewModule.forRoot(),
+    RatingModule
   ],
   providers: [AuthService, AuthGuard],
   bootstrap: [AppComponent]

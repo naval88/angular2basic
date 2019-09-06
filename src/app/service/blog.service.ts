@@ -15,10 +15,13 @@ export class BlogService {
 		fetchAllPosts(data?) {
 			this.endpoint = "posts";
 			if(data) {
-
 				this.endpoint = "posts/"+data;
 			}
 			return this.httpClient.get(this.base_url + '/' + this.endpoint);
 		}
+
+		fetchPopularPosts() {
+			return this.httpClient.get('http://localhost:8081/popular-posts');
+		};
 
 }

@@ -1,20 +1,23 @@
 var Post = require('../models/posts.model.js');
+const env = require('../config/env.js');
 const Mail = require('../mail/mail.js');
 var db_conection = require('../config/db.js');
 var fs = require('fs');
 const folder_name = "./upload/";
 const jwt = require('jsonwebtoken');
-const jwtKey = 'qwerty6789';
-const jwtExpirySeconds = 300;
+const jwtKey = env.jwt_key;
+const jwtExpirySeconds = env.jwt_expiry_time;
 
 exports.createPost = (req,res_main) => {
 	var new_post = new Post(req.body);	
 	let bearer = req.headers.authorization;
 	if(typeof bearer !== 'undefined') {
 		let token = req.headers.authorization.split(" ")[1];
+		//let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjpbeyJpZCI6MSwibmFtZSI6ImFkbWluIn1dLCJpYXQiOjE1Njc3NDk2MjEsImV4cCI6MTU2Nzc0OTkyMX0.GXL0-o3PA8BgnxbTCBmALMGwl0pCsvPhpoypS03J188";
 		jwt.verify(token, jwtKey, function (err, decoded){
             if (err){
                 console.log(err);
+                console.log(err.name);
                 req.authenticated = false;
                 req.decoded = null;
             } else {               
@@ -56,7 +59,6 @@ exports.listPost = (req,res) => {
 };
 
 exports.listPostAsPerPage = (req,res) => {
-	console.log(req.params.limitId);
 	Post.fetchAsPerPage(req.params.limitId, function (err,post) {
 		if(post) {
 			res.json({"status":200, "type":"success", 'data':post, 'message':'post fetched successfully'});
@@ -64,3 +66,25 @@ exports.listPostAsPerPage = (req,res) => {
 		}
 	});
 };
+
+exports.addRating = (req, res) => {
+	Post.saveRating(req.body,function(err, rating) {
+		if(rating) {
+			res.json({"status":200, "type":"success", 'message':'rating added successfully'});
+			res.end();
+		}
+	});
+};
+
+exports.popularPosts = (req, res) => {
+	Post.fetchPopluarPosts(function (err,popularPost){
+		if(popularPost) {
+			res.json({"status":200, 
+						"type":"success", 
+						'message':'popular post fetch successfully',
+						"data":popularPost
+					});
+			res.end();	
+		}
+	});
+}
