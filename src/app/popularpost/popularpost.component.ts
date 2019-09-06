@@ -17,7 +17,6 @@ export class PopularpostComponent implements OnInit {
 	ngOnInit() {
 		this.blogservice.fetchPopularPosts().subscribe((response:any) => {
 			this.popular_post_data = response.data;
-			console.log(popular_post_data);
 		});		
 	}
 
