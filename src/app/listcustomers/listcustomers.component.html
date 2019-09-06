@@ -7,13 +7,13 @@
 				<th>Email</th>
 				<th>Action</th>
 			</tr>
-			<tr *ngFor="let user of users| paginate: { itemsPerPage: 10, currentPage: p }; let i = index">
+			<tr *ngFor="let user of users|  let i = index">
 				<th>{{i+1}}</th>
 				<th>{{user.name}}</th>
 				<th>{{user.email}}</th>
 				<th>Action</th>
 			</tr>
 		</table>	
-		 <pagination-controls (pageChange)="p = $event"></pagination-controls>	
+		
 	</div>
 </div>		
