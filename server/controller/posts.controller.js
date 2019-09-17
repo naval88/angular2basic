@@ -7,6 +7,7 @@ const folder_name = "./upload/";
 const jwt = require('jsonwebtoken');
 const jwtKey = env.jwt_key;
 const jwtExpirySeconds = env.jwt_expiry_time;
+const fetch = require("node-fetch");
 
 exports.createPost = (req,res_main) => {
 	var new_post = new Post(req.body);	
@@ -87,4 +88,47 @@ exports.popularPosts = (req, res) => {
 			res.end();	
 		}
 	});
+};
+
+async function toAssignKeyToArray(keyToAssign, result) {
+	let outputAsResult = [];
+	let assignedKey;
+	for(let i = 0; i < result.length; i++) {
+		assignedKey = keyToAssign[i];
+		outputAsResult[assignedKey] =  result[i];
+	}	
+	return outputAsResult;
 }
+
+exports.getTwoTableData = (req, res) => {
+	Promise.race([Post.userPromise, Post.userPostsPromise, Post.promise3])
+	.then(results => {	
+		//console.log(results);
+		//let json_result = result;
+		//let keyToAssign = ['users', 'posts', 'user_name'];
+		//let dataResult  = toAssignKeyToArray(keyToAssign, JSON.parse(JSON.stringify(result)));
+		//console.log(dataResult);
+	    res.json({ 
+	    			"status":200,
+	    			"data": results
+	    		});
+		//res.end("dataResult");
+		//res.end(results);
+	  });
+};
+
+function myFunction(user) {
+	console.log("test1");
+	console.log(user.name);
+	console.log("test2");
+}
+
+exports.showData = (req, res) => {
+	fetch('https://jsonplaceholder.typicode.com/users')
+	.then(result => result.json())
+	.then(result => {
+	    result.map(myFunction);
+	    console.log("end");
+	    res.end("data completed");
+	});
+};

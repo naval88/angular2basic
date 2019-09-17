@@ -2,6 +2,7 @@
 var sql = require('../config/db.js');
 const env = require('../config/env.js');
 const post_offset = env.post_offset;
+
 var Post = function(post){    
     this.author_id = post.author_id;
     this.title = post.title;
@@ -23,17 +24,14 @@ Post.savePost = function (newPost, result) {
     });
 };
 
-
-Post.fetchAll = function (result) {   
-    
+Post.fetchAll = function (result) {       
 	let query = "select (select name from users where id=author_id) as name,"
 				+" title, description, image, created_at from posts order by id desc";
 
     sql.query(query,function (err, data) {            
             if(err) {
                 result(err, null);
-            }
-            else {
+            } else {
                 result(null, data);
             }
     });
@@ -63,13 +61,43 @@ Post.fetchAsPerPage = function (limit, result) {
 Post.fetchPopluarPosts = function (result) {
     let query = "select * from user_name_post_ratings order by rating desc limit ? , ?";
     let query_sql = sql.query(query,[0 ,3], function (err, data) {   
-            if(err) {
-                result(err, null);
-            }
-            else {
-                result(null, data);
-            }
+        if(err) {
+            result(err, null);
+            return;
+        }
+        else {
+            result(null, data);
+        }
     });    
-}
+};
+
+Post.userPromise = new Promise(function(result, err) {
+    let userQuery = "select * from users";
+    let finalQuery = sql.query(userQuery, function (err, data) {   
+        if(err) {
+            result(err, null);
+            //return;
+        }
+        else {
+            result(data);
+        }
+    });
+    console.log(finalQuery.sql);
+});
+
+Post.userPostsPromise = new Promise(function(result, err) {
+    let userQuery = "select * from posts";
+    sql.query(userQuery, function (err, data) {   
+        if(err) {
+            result(err, null);
+            //return;
+        }
+        else {
+            result(data);
+        }
+    });
+});
+
+Post.promise3 = "naval kishor"; 
 
 module.exports = Post;

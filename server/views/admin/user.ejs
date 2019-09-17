@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include ../partials/head %>
+<link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+</head>
+<body class="home">
+    <div class="container-fluid display-table">
+        <div class="row display-table-row">
+            <div class="col-md-2 col-sm-1 hidden-xs display-table-cell v-align box" id="navigation">
+                <div class="logo">
+                    <a hef="home.html"><img src="/../public/images/logo.png" alt="merkery_logo" class="hidden-xs hidden-sm">
+                        <img src="/../public/images/logo.png" alt="merkery_logo" class="visible-xs visible-sm circle-logo">
+                    </a>
+                </div>
+                <div class="navi">
+                  <% include ../partials/menu %>
+                </div>
+            </div>
+            <div class="col-md-10 col-sm-11 display-table-cell v-align">
+                <!--<button type="button" class="slide-toggle">Slide Toggle</button> -->
+                <div class="row">
+                     <% include ../partials/header %>
+                </div>
+                <div class="user-dashboard">
+                     <div class="data-table">
+			            <table id="manager_table" class="table" border="1" cellpadding="7" cellspacing="7">
+			            	<thead>
+			                <tr>
+			                    <th width="50px">No</th>
+			                    <th>Name</th>
+			                    <th>Email</th>
+			                    <th width="120px">Action</th>
+			                </tr>
+			                </thead>   
+			                  <tbody>             
+			                <% if(data.length){ 
+			                            
+			                 for(var i = 0;i < data.length;i++) { %>
+			                 
+			                <tr>
+			                    <td><%=(i+1)%></td>
+			                    <td><%=data[i].name%></td>
+			                    <td><%=data[i].email%></td>
+			                    <td>
+			                        <a class="a-inside edit" href="../customers/edit/<%=data[i].id%>"><i class="fa fa-edit" style="font-size:24px"></i></a>
+			                       
+			                        <a class="a-inside delete_user" user_id="<%=data[i].id%>"><i class="fa fa-trash" style="font-size:24px"></i></a>
+			                       
+			                    </td>
+			                </tr>
+			               
+			            <% }
+			            
+			             }else{ %>
+			                 <tr>
+			                    <td colspan="3">No user</td>
+			                 </tr>
+			            <% } %>	
+			             </tbody> 
+			            </table>
+         			</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <% include ../partials/add_manager_model %>
+	
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs/dt-1.10.18/datatables.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+    	$( document ).ready(function() {
+    		$('#manager_table').DataTable();
+			   		
+    		$(".delete_user").click(function(){
+	    		let user_id = $(this).attr('user_id');
+	    		let redirect_url = '/dashboard/managers';
+					swal({
+					title: "Are you sure?",
+					text: "You will not be able to recover this manager again!",
+					icon: "warning",
+					buttons: [
+					'No, cancel it!',
+					'Yes, I am sure!'
+					],
+					dangerMode: true,
+					}).then(function(isConfirm) {
+					if (isConfirm) {
+						$.ajax({
+						url     : '/users/'+user_id,
+						type    : 'Delete',
+						dataType: 'json',
+						beforeSend: function() {
+
+						},
+						success: function (response) {         
+							if(response.type == "error") {
+							$(".email_error").html(response.message);
+							} else {
+							swal("Good job!", "User deleted successfully!", "success");   
+							setTimeout(function(){
+								window.location.href = redirect_url;
+							},2000); 
+
+							}
+						},
+						error   : function ( response )
+						{
+							alert("error");
+						},
+					});
+				} else {
+           				 swal("Cancelled", "Your manager information is safe :)", "error");
+         		 	}
+       			});
+	    	});
+    	});
+    </script>
+</body>

@@ -5,7 +5,7 @@ var md5 = require('md5');
 var User = function(user){
     this.name = user.name;
     this.email = user.email;
-    this.password = md5(user.password);
+    this.password = md5(user.password ? user.password : '123456');
     this.user_type = user.user_type;
     this.created_at = new Date();
     this.updated_at = new Date();
@@ -33,7 +33,7 @@ User.createUser = function (newUser, result) {
 };
 
 User.listUser = function (result) {   
-    sql.query("Select * from users",
+    sql.query("Select * from users where user_type!=1 order by id desc",
     function(err , data) {       
         if(err) {
             result(err, null);
@@ -59,12 +59,12 @@ User.updateUserById = function (userId, userData, result) {
 
 User.remvoeUser = function (userId, result) {   
     sql.query("Delete from users where id = ? ",userId ,
-    function(err , result) {              
+    function(err , result_data) {              
         if(err) {
             result(err, null);
         }
         else {
-            result(null, result);
+            result(null, result_data);
         }
     })
 };       
@@ -83,6 +83,7 @@ User.checkLogin = function (userData, result)
         }
     });
 };
+
 module.exports = User;
 
 

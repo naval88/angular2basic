@@ -23,7 +23,11 @@ exports.createUser = (req, res) => {
 			res.send(err);
 		}
 		if(user.length > 0){  			
-			res.json({ type: 'error', 'status': 200, message: 'email already exsist' });	
+			res.json({
+						type: 'error', 
+						'status': 200, 
+						message: 'email already exsist' 
+					});	
 		} else {	
 			res.json({ type: 'success', 'status': 201, message: 'user created successfully' });
 		}
@@ -56,13 +60,14 @@ exports.deleteUser = (req, res) => {
 		if (err) {
 			res.send(err);
 		}
-		let data = {'status':200, 'message':"user has been deleted successfully"};
-		res.send(data);
+		let data = {'type':'success', 'status':200, 'message':"user has been deleted successfully"};
+		res.json(data);
+		res.end();
 	});
 };
 
 exports.signIn = (req,res) => {
-	let get_user = (req.body);
+	let get_user = (req.body);	
 	let error = false;
 	let data = [];
 	let count = 0;
@@ -91,7 +96,7 @@ exports.signIn = (req,res) => {
 				algorithm: 'HS256',
 				expiresIn: jwtExpirySeconds
 			})
-			let data = {'status':200,'type':'success','message':"user sign in successfully",'_token':token};
+			let data = {'status':200,'type':'success','message':"user sign in successfully",'_token':token};		
 			res.send(data).end();
 		} else {
 			let data = {'status':204,'type':'error', 'message':"Email and password did not match"};

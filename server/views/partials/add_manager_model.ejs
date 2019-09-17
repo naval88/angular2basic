@@ -1,0 +1,54 @@
+<div id="add_project" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form id="manager_form" method="POST" action="/dashboard/save-managers" onSubmit="return saveManager()">
+                <div class="modal-header login-header">
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                    <h4 class="modal-title">Add Manager</h4>
+                </div>
+                <div class="modal-body">
+                        <input type="text" placeholder="Name" name="name" required>
+                        <input type="email" placeholder="Email" name="email" required>
+                        <span class="red email_error"></span>
+                        <input type="hidden" placeholder="Email" name="user_type" required value="2">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="cancel" data-dismiss="modal">Close</button>
+                    <button type="submit" class="add-project">Save</button>
+                </div>
+            </form>    
+        </div>
+    </div>
+</div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+<script>
+function saveManager() {
+    $(".email_error").html('');
+    let redirect_url = "/dashboard/managers";
+    $.ajax({
+    url     : $('#manager_form').attr('action'),
+    type    : $('#manager_form').attr('method'),
+    data    : $('#manager_form').serialize(),
+    dataType: 'json',
+    beforeSend: function() {
+
+    },
+    success: function (response) {         
+        if(response.type == "error") {
+            $(".email_error").html(response.message);
+        } else {
+            $("#add_project").hide();   
+            swal("Good job!", "Manager added successfully!", "success");   
+            setTimeout(function(){
+                window.location.href = redirect_url;
+            },2000); 
+        }
+    },
+    error   : function ( response )
+    {
+       alert("error");
+    },
+    });
+    return false;
+}
+</script>

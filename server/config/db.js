@@ -1,11 +1,12 @@
 var mysql = require('mysql');
-
+var env = require('./env.js');
+console.log(env.db_host);
 //local mysql db connection
 var connection = mysql.createConnection({
-    host     : 'localhost',
-    user     : 'root',
-    password : '123456',
-    database : 'node_angular_basic'
+    host     :  env.db_host,
+    user     :  env.db_user_name,
+    password :  env.db_password,
+    database :  env.db_name
 });
 
 connection.connect(function(err) {
